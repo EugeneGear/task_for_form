@@ -6,17 +6,17 @@
     <body>
 <?php
 
-function get_invented_string($string)
+function get_invented_string($string) //Функция преобразования полученной строки
 {
     $inv_string = '';
     $str_lenght = iconv_strlen($string);
     $i=0;
-    while ($i<$str_lenght)
+    while ($i<$str_lenght) //Посимвольный перебор строки
     {
-        if (preg_match('/[а-яА-Яa-zA-Z0-9]/', $string[$i]))
+        if (preg_match('/[а-яА-Яa-zA-Z0-9]/', $string[$i])) //Проверка текущего символа на начало слова
         {
             $j=$i; $a=$i;
-            while ($j+1<$str_lenght && preg_match('/[а-яА-Яa-zA-Z0-9]/', $string[$j+1]))
+            while ($j+1<$str_lenght && preg_match('/[а-яА-Яa-zA-Z0-9]/', $string[$j+1])) //Поиск позиции конца слова
             {
                 $j++;
             }
@@ -29,14 +29,14 @@ function get_invented_string($string)
         }
         else
         {
-            $inv_string.=$string[$i];
+            $inv_string.=$string[$i]; //Знак и пробел сохраняет позицию в строке
             $i++;
         }
     }
     return $inv_string;
 }
 
-function check_register($string, $i, $j)
+function check_register($string, $i, $j) //Функция проверки регистра текущего символа
 {
     if (ctype_upper($string[$i]))
     {$str_sign = strtoupper($string[$j]);}
@@ -48,7 +48,7 @@ function check_register($string, $i, $j)
 if(isset($_POST['inverse']))
 {
     $string = $_POST['text_for_inversion'];
-    if (preg_match('/[а-яА-Я]/', $string))
+    if (preg_match('/[а-яА-Я]/', $string)) //Проверка на использование кириллицы
         echo 'Ошибка: Используйте латиницу';
     else
     {
